@@ -28,7 +28,7 @@ Examples of unacceptable behavior by participants include:
 
 Project maintainers are responsible for clarifying the standards of acceptable behavior and are expected to take appropriate and fair corrective action in response to any instances of unacceptable behavior.
 
-* **Reporting:** If you experience or witness unacceptable behavior, or have any other concerns, please notify the project team immediately by contacting the Project Manager (e.g., Prof. Obregon or a designated TA/Lead).
+* **Reporting:** If you experience or witness unacceptable behavior, or have any other concerns, please notify the project team immediately by contacting the Project Manager.
 * **Confidentiality:** All complaints will be reviewed and investigated promptly and confidentially.
 * **Enforcement:** Maintainers who do not follow or enforce the Code of Conduct in good faith may face temporary or permanent repercussions as determined by the project leadership.
 
