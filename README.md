@@ -27,4 +27,6 @@ Every semester, university students suffer from arranging their timetables. Bala
 
 ### Prerequisites
 * Java Development Kit (JDK) 17 or higher installed.
-* Git installed.
+* Terminal / Command Prompt access.
+
+**⚠️ Note:** This application requires user input. Please run it in a **terminal**.
