@@ -6,13 +6,12 @@ import java.util.Scanner;
 
 public class InputHandler {
 
+    private static List<Course> mandatoryList = new ArrayList<>();
+    private static List<Course> optionalList = new ArrayList<>();
+    private static int targetCredit = 0;
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        
-        List<Course> mandatoryList = new ArrayList<>();
-        List<Course> optionalList = new ArrayList<>();
 
-        int targetCredit = 0;
 
         System.out.println("===== UniTime-Solver: Input Courses =====");
 
@@ -161,5 +160,18 @@ public class InputHandler {
         } catch (NumberFormatException e) {
             throw new Exception("Time must contain valid numbers");
         }
+    }
+
+    //Getters
+    public static List<Course> getMandatoryList() {
+    return mandatoryList;
+    }
+
+    public static List<Course> getOptionalList() {
+        return optionalList;
+    }
+
+    public static int getTargetCredit() {
+        return targetCredit;
     }
 }
