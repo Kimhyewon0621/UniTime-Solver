@@ -1,7 +1,7 @@
 package com.unitime.feature;
 
 public class Course {
-    private String name;        // course nae
+    private String name;        // course name
     private int credit;         // credit
 
     // time
