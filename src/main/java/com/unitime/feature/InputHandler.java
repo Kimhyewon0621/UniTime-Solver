@@ -8,7 +8,7 @@ public class InputHandler {
 
     private static List<Course> mandatoryList = new ArrayList<>();
     private static List<Course> optionalList = new ArrayList<>();
-    private static int targetCredit = 0;
+    private static int maxCredit = 0;
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -19,8 +19,8 @@ public class InputHandler {
         System.out.print("What is your MAXIMUM total credit? (positive number): ");
         while (true) {
             try {
-                targetCredit = Integer.parseInt(sc.nextLine().trim());
-                if (targetCredit > 0) { 
+                maxCredit = Integer.parseInt(sc.nextLine().trim());
+                if (maxCredit > 0) { 
                     System.out.println("Maximum credit checked.");
                     break; 
                 }
@@ -44,7 +44,7 @@ public class InputHandler {
         System.out.println("\n==========================================");
         System.out.println("           Check Input Summary            ");
         System.out.println("==========================================");
-        System.out.println("Target Credit: " + targetCredit);
+        System.out.println("Maximum Credit: " + maxCredit);
         
         // Mandatory
         System.out.println("\n[Fixed Courses] (" + mandatoryList.size() + " courses)");
@@ -171,7 +171,7 @@ public class InputHandler {
         return optionalList;
     }
 
-    public static int getTargetCredit() {
-        return targetCredit;
+    public static int getMaxCredit() {
+        return maxCredit;
     }
 }
