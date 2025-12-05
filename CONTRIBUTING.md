@@ -21,4 +21,5 @@ To contribute code, please follow these steps:
     * Example: `feat: Add function to search lecture by time`
 4.  **Push** your branch to your forked repository.
 5.  **Open a Pull Request (PR)** to the `main` branch of this repository.
-
+6.  **Review & Merge**: The Pull Request must receive approvals from a **all 3 reviewers**.
+    * Once all approvals are secured, the PR author is responsible for merging their changes into the `main` branch.
