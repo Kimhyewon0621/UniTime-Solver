@@ -1,8 +1,6 @@
 public class IntroScreen {
-
     private static final String ANSI_RESET = "\u001b[0m";
     private static final String ANSI_BOLD = "\u001b[1m";
-    private static final String ANSI_CYAN = "\u001b[38;5;51m";
     private static final String ANSI_GREEN = "\u001b[38;5;46m";
     private static final String ANSI_YELLOW = "\u001b[38;5;226m";
     private static final String[] ANSI_COLORS = {
@@ -30,15 +28,16 @@ public class IntroScreen {
 
         System.out.println(h_border);
 
-        String title = " ♬  UniTime-Solver Dashboard";
+        String title = " ♬  UniTime-Solver";
         int currentLength = title.length();
         int padding = WIDTH - currentLength; 
 
-        System.out.println("| " + ANSI_CYAN + ANSI_BOLD + title + ANSI_RESET + " ".repeat(padding) + " |");
+        System.out.println("| " + ANSI_BOLD + title + ANSI_RESET + " ".repeat(padding) + " |");
         System.out.println(h_border);
 
-        String status = " Status: [ **DONE** ]"; 
+        String status = " Status: [ *READY to START* ]"; 
         int statusPadding = WIDTH - status.length();
+
 
         System.out.println("| " + ANSI_GREEN + status + ANSI_RESET + " ".repeat(statusPadding) + " |");
         System.out.println(h_border);
