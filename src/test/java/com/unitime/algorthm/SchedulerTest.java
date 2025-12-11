@@ -7,7 +7,7 @@ import java.util.List;
 import com.unitime.feature.Course;
 
 public class SchedulerTest {
-
+    // Check if schedule is generated when basic constraints are met
     @Test
     public void testBasicSchedule() {
         List<Course> mandatory = new ArrayList<>();
@@ -22,6 +22,7 @@ public class SchedulerTest {
         assertTrue(result.size() > 0);
     }
 
+    // Check if credit limit is respected
     @Test
     public void testTimeConflict() {
         List<Course> mandatory = new ArrayList<>();
@@ -44,6 +45,7 @@ public class SchedulerTest {
         assertFalse(hasConflict);
     }
 
+    // Check if credit limit is respected
     @Test
     public void testCreditLimit() {
         List<Course> mandatory = new ArrayList<>();
