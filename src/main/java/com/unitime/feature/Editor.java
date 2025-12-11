@@ -12,7 +12,7 @@ public class Editor {
     private List<Course> mandatoryList;
     private List<Course> optionList;
     private int goalCredit;
-    
+
     private Scanner sc;
 
     //add color
