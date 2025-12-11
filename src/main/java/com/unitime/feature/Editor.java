@@ -177,5 +177,6 @@ public class Editor {
 
     public void quit(){
         System.out.println("[Bye] Closing system...");
+        System.exit(0);
     }
 }

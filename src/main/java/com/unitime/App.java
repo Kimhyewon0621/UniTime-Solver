@@ -11,18 +11,18 @@ import com.unitime.feature.InputHandler;
 public class App {
     public static void main(String[] args) {
         
-        // Only one scanner !!!!!!!
+        // Only one scanner!!!!!
         Scanner sc = new Scanner(System.in);
         
         IntroScreen.start();
         System.out.println("Press [ENTER] to start...");
         sc.nextLine();
 
-        // initial input
+        // get input
         InputHandler inputHandler = new InputHandler();
-        inputHandler.handle(sc); // pass sc
+        inputHandler.handle(sc);
 
-        // first 5
+        // First result
         System.out.println("\n[Algorithm] Generating optimal timetables...");
         Scheduler scheduler = new Scheduler();
         List<List<Course>> results = scheduler.schedule(
@@ -31,13 +31,13 @@ public class App {
             inputHandler.getMaxCredit()
         );
 
-        // post-operations(next,edit,quit) are tossed to editor
+        // Editor is in charge of all post-operations (next,quit,edit)
         Editor editor = new Editor(
             results, 
             inputHandler.getMandatoryList(), 
             inputHandler.getOptionalList(), 
             inputHandler.getMaxCredit(),
-            sc
+            sc 
         );
         editor.start(); 
         
