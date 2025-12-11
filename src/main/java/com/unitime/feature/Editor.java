@@ -49,7 +49,11 @@ public class Editor {
             nextInput = rv.printBatchAndGetInput(this.schedules, index, this.sc);
 
             if (nextInput.equals("next")) {
-                index += 5;
+                if (index + 5 < schedules.size()) {
+                    index += 5;
+                } else {
+                    System.out.println("[Info] No more schedules to show.");
+                }
                 continue;
             }
             break; 
