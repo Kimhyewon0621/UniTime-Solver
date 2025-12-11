@@ -162,4 +162,8 @@ public class Editor {
             System.out.println("Invalid input.");
         }
     }
+
+    public void exit(){
+        System.out.println("[Bye] Closing system...");
+    }
 }
