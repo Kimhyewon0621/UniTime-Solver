@@ -8,10 +8,10 @@
 **UniTime-Solver** acts as your smart assistant. It doesn't just give you a fixed result; it collaborates with you.
 
 ## Key Features
-- **Input from User:** Allows users to clearly segment and input mandatory and optional courses.
-- **Backtracking:** Algorithm Uses DFS-based recursion to generate all valid timetable combinations.
-- **User Interface (UI):** Provides a highly readable timetable list in the console environment using ANSI codes, including **pagination** for large result sets.
-- **Editor** Allows the user to edit the result timetables by modifying course lists.
+>- **Input from User:** Allows users to clearly segment and input mandatory and optional courses.
+>- **Backtracking:** Algorithm Uses DFS-based recursion to generate all valid timetable combinations.
+>- **User Interface (UI):** Provides a highly readable timetable list in the console environment using ANSI codes, including **pagination** for large result sets.
+>- **Editor** Allows the user to edit the result timetables by modifying course lists.
 
 ## Tech Stack
 >Language: Java (JDK 17+)
@@ -34,14 +34,15 @@
 >5. Edit or Quit
 
 ## Output Examples
+<img width="205" height="400" alt="image" src="https://github.com/user-attachments/assets/da546467-55c7-4332-afb9-2b5528665ec1" />
 
 
 ## Contribution
-Ayeong Kwon ( @AyeongKwon )  
-Mingyeong Kim ( @mingyeonggg)  
-Hyewon Kim ( @Kimhyewon0621 )  
-Jiseop Lee ( @ljseop1030 )  
+>Ayeong Kwon ( @AyeongKwon )  
+>Mingyeong Kim ( @mingyeonggg)  
+>Hyewon Kim ( @Kimhyewon0621 )  
+>Jiseop Lee ( @ljseop1030 )  
 
 ## License
-This project is licensed under the MIT License.
+>This project is licensed under the MIT License.
 
