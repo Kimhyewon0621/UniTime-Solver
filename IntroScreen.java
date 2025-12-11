@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class IntroScreen {
     private static final String ANSI_RESET = "\u001b[0m";
     private static final String ANSI_BOLD = "\u001b[1m";
@@ -14,12 +16,20 @@ public class IntroScreen {
     private static final int NUM_COLORS = ANSI_COLORS.length;
     private static final int WIDTH = 80;
 
-    public static void main(String[] args) {
+    public static boolean start() {
         printBorderedBox();
 
         System.out.println("=".repeat(WIDTH + 4));
         System.out.println(ANSI_YELLOW + "                      Press [ENTER] to Start UniTime_Solver." + ANSI_RESET);
         System.out.println("=".repeat(WIDTH + 4));
+
+        //waiting user's enter
+        try (Scanner scanner = new Scanner(System.in)) {
+            scanner.nextLine();
+            return true; //if user's enter succeed
+        }catch (exception e) {
+            return false; //else
+        }
     }
 
     private static void printBorderedBox() {
