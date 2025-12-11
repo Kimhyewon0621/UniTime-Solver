@@ -1,82 +1,35 @@
 package com.unitime.feature;
 
 import java.util.*;
-import com.unitime.UI.ResultView;
-import com.unitime.algorthm.Scheduler;
 
 public class Editor {
 
-    private List<List<Course>> schedules;
     private List<Course> mandatoryList;
     private List<Course> optionList;
     private int goalCredit;
-    
     private Scanner sc; 
 
-    // Constructor
-    public Editor(List<List<Course>> schedules, List<Course> mandatory, List<Course> optional, int credit, Scanner scanner) {
-        this.schedules = schedules;
+    public Editor(List<Course> mandatory, List<Course> optional, int credit, Scanner scanner) {
         this.mandatoryList = mandatory;
         this.optionList = optional;
         this.goalCredit = credit;
         this.sc = scanner;
     }
 
-    // Routing: send to function depending on its input
-    public void route(String input, List<List<Course>> currentSchedules) {
-        if (currentSchedules != null) {
-            this.schedules = currentSchedules;
-        }
-
-        input = input.toLowerCase().trim();
-
-        if (input.equals("quit")) quit();
-        else if (input.equals("edit")) editList(); 
-        else if (input.equals("next")) viewLoop(5);
-        else {
-            System.out.println("[Error] Invalid input. Going back to View Mode.");
-            viewLoop(0);
-        }
-    }
-
-    // 'next': loop to show 5 more schedules
-    private void viewLoop(int startIndex) {
-        int index = startIndex;
-        String nextInput;
-
-        while (true) {
-            ResultView rv = new ResultView();
-            nextInput = rv.printBatchAndGetInput(this.schedules, index, this.sc);
-
-            if (nextInput.equals("next")) {
-                if (index + 5 < schedules.size()) {
-                    index += 5;
-                } else {
-                    System.out.println("[Info] No more schedules to show.");
-                }
-                continue;
-            }
-            break; 
-        }
+    // [핵심] App.java에서 호출하는 메서드
+    public void runEditMode() {
+        System.out.println("\n==========================================");
+        System.out.println("             [ EDIT MODE ]");
+        System.out.println("==========================================");
         
-        route(nextInput, this.schedules); 
-    }
-
-    // 'edit': edit lists and send it back to InputHandler 
-    private void editList() {
-        System.out.println("[Edit Mode]");
         modifyCourse(this.mandatoryList, this.optionList); 
 
-        System.out.println("Re-calculating schedules...");
-
-        Scheduler scheduler = new Scheduler();
-        this.schedules = scheduler.schedule(this.mandatoryList, this.optionList, this.goalCredit);
+        System.out.println("Exiting Edit Mode... Saving changes...");
     }
 
-    // helper of 'edit'
     private void modifyCourse(List<Course> mandatory, List<Course> optional) {
-
-        InputHandler ih = new InputHandler();
+        
+        // [중요] 여기에 'new InputHandler()'가 있으면 절대 안 됩니다! (삭제됨)
 
         while (true) {
             System.out.println("\n------------------------------------------");
@@ -88,39 +41,28 @@ public class Editor {
             System.out.println("2. Add/Edit OPTIONAL Courses");
             System.out.println("3. Remove a Course");
             System.out.println("4. Change Goal Credit");
-            System.out.println("0. Finish Editing (Run Scheduler)");
+            System.out.println("0. Finish Editing & View Timetables");
             System.out.print("> Select: ");
 
             String choice = sc.nextLine().trim();
 
-            // Add
             if (choice.equals("1")) {
                 System.out.println("\n[Add to Mandatory] Type 'done' to finish.");
-                ih.inputLoop(sc, mandatory);
+                // InputHandler 대신 직접 만든 입력 메서드를 씁니다.
+                addCourseLoop(mandatory, true); 
             } 
             else if (choice.equals("2")) {
                 System.out.println("\n[Add to Optional] Type 'done' to finish.");
-                ih.inputLoop(sc, optional);
+                addCourseLoop(optional, false);
             } 
             else if (choice.equals("3")) {
                 removeCourseHelper(mandatory, optional);
             } 
             else if (choice.equals("4")) {
-                System.out.print("Enter new max credit: ");
-                try {
-                    int newCredit = Integer.parseInt(sc.nextLine().trim());
-                    if (newCredit > 0) {
-                        this.goalCredit = newCredit;
-                        System.out.println("Goal credit updated.");
-                    } else {
-                        System.out.println("Credit must be positive.");
-                    }
-                } catch (Exception e) {
-                    System.out.println("Invalid number.");
-                }
+                changeCredit();
             } 
             else if (choice.equals("0")) {
-                break;
+                break; 
             } 
             else {
                 System.out.println("Invalid choice.");
@@ -128,7 +70,94 @@ public class Editor {
         }
     }
 
-    // helper of 'edit': remove
+    // [해결책] InputHandler의 입력 로직을 여기로 가져와서 직접 처리합니다.
+    // 이렇게 하면 '최대 학점'을 묻는 불필요한 질문 없이 과목만 추가할 수 있습니다.
+    private void addCourseLoop(List<Course> targetList, boolean isMandatory) {
+        System.out.println("------------------------------------------------------------------");
+        System.out.println("Format: Name / Credit / Time");
+        System.out.println("Example: Data Structure / 3 / Mon 12:30 14:00");
+        System.out.println("------------------------------------------------------------------");
+
+        while (true) {
+            System.out.print("\nInput (or 'done'): ");
+            String input = sc.nextLine().trim();
+
+            if (input.equalsIgnoreCase("done")) break;
+
+            try {
+                // 1. '/' 기준으로 나누기
+                String[] parts = input.split("/");
+                if (parts.length != 3) throw new Exception("Use '/' to separate fields");
+
+                String name = parts[0].trim();
+                int credit = Integer.parseInt(parts[1].trim());
+                String timeString = parts[2].trim();
+                
+                // 2. 시간 파싱 (Day Start End)
+                String[] timeParts = timeString.split(" ");
+                if (timeParts.length != 3) throw new Exception("Time format: Day Start End");
+
+                int day = parseDay(timeParts[0]);
+                int startMin = parseMin(timeParts[1]);
+                int endMin = parseMin(timeParts[2]);
+
+                if (startMin >= endMin) throw new Exception("End time must be after start time");
+
+                String timeRaw = timeParts[0] + " " + timeParts[1] + "-" + timeParts[2];
+                
+                // 3. 과목 생성 및 추가
+                Course c = new Course(name, credit, day, startMin, endMin, timeRaw);
+                
+                // 스크린샷에 있던 에러 해결: setMandatory 메서드 호출
+                if (isMandatory) c.setMandatory(true); 
+                
+                targetList.add(c);
+                System.out.println(" -> [Added] " + name);
+
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+                System.out.println("Try again: Name / Credit / Day Start End");
+            }
+        }
+    }
+
+    // [헬퍼] 요일 파싱
+    private int parseDay(String d) throws Exception {
+        d = d.toLowerCase();
+        if (d.startsWith("m")) return 0;
+        if (d.startsWith("tu")) return 1;
+        if (d.startsWith("w")) return 2;
+        if (d.startsWith("th")) return 3;
+        if (d.startsWith("f")) return 4;
+        throw new Exception("Invalid day");
+    }
+
+    // [헬퍼] 시간 파싱
+    private int parseMin(String t) throws Exception {
+        String[] hhmm = t.split(":");
+        if (hhmm.length != 2) throw new Exception("Time format HH:MM");
+        int h = Integer.parseInt(hhmm[0]);
+        int m = Integer.parseInt(hhmm[1]);
+        return h * 60 + m;
+    }
+
+    // 학점 변경
+    private void changeCredit() {
+        System.out.print("Enter new max credit: ");
+        try {
+            int newCredit = Integer.parseInt(sc.nextLine().trim());
+            if (newCredit > 0) {
+                this.goalCredit = newCredit;
+                System.out.println("Goal credit updated.");
+            } else {
+                System.out.println("Credit must be positive.");
+            }
+        } catch (Exception e) {
+            System.out.println("Invalid number.");
+        }
+    }
+
+    // 과목 삭제
     private void removeCourseHelper(List<Course> mandatory, List<Course> optional) {
         System.out.println("\n[Remove Course]");
         System.out.println("1. From Mandatory");
@@ -145,7 +174,7 @@ public class Editor {
         }
 
         if (target.isEmpty()) {
-            System.out.println("This list is empty.");
+            System.out.println("List is empty.");
             return;
         }
 
@@ -153,7 +182,7 @@ public class Editor {
             System.out.println("[" + i + "] " + target.get(i).getName());
         }
 
-        System.out.print("Enter index to remove (or -1 to cancel): ");
+        System.out.print("Enter index to remove: ");
         try {
             int idx = Integer.parseInt(sc.nextLine().trim());
             if (idx >= 0 && idx < target.size()) {
@@ -167,7 +196,7 @@ public class Editor {
         }
     }
 
-    public void quit(){
-        System.out.println("[Bye] Closing system...");
+    public int getGoalCredit() {
+        return this.goalCredit;
     }
 }
