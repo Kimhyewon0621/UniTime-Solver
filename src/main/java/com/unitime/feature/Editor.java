@@ -5,6 +5,15 @@ import com.unitime.UI.ResultView;
 import com.unitime.algorthm.Scheduler;
 
 public class Editor {
+    public static final String RESET = "\u001B[0m";
+    public static final String RED = "\u001B[31m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String YELLOW = "\u001B[33m";
+    public static final String BLUE = "\u001B[34m";
+    public static final String PURPLE = "\u001B[35m";
+    public static final String CYAN = "\u001B[36m";
+    public static final String BLACK = "\u001B[30m";
+    public static final String BOLD = "\u001B[1m";
 
     private List<List<Course>> schedules;
     private List<Course> mandatoryList;
@@ -38,7 +47,7 @@ public class Editor {
         else if (input.equals("edit")) editList(); 
         else if (input.equals("next")) viewLoop(5);
         else {
-            System.out.println("[Error] Invalid input. Going back to View Mode.");
+            System.out.println(RED+"[Error] Invalid input. Going back to View Mode."+RESET);
             viewLoop(0);
         }
     }
@@ -60,7 +69,7 @@ public class Editor {
             int nextIndex = startIndex;
             if(nextInput.equals("next")) {
                 if (startIndex + 5 < schedules.size()) nextIndex += 5;
-                else System.out.println("[Info] Last page.");
+                else System.out.println(YELLOW+"[Info]"+RESET + " Last page.");
             }
         
             route(nextInput, this.schedules); 
@@ -69,7 +78,7 @@ public class Editor {
 
     // 'edit': edit lists and send it back to InputHandler 
     private void editList() {
-        System.out.println("[Edit Mode]");
+        System.out.println(GREEN+"[Edit Mode]"+RESET);
         modifyCourse(this.mandatoryList, this.optionList); 
 
         System.out.println("Re-calculating schedules...");
@@ -87,73 +96,73 @@ public class Editor {
         InputHandler ih = new InputHandler();
 
         while (true) {
-            System.out.println("\n------------------------------------------");
-            System.out.println(" Current Goal Credit: " + this.goalCredit);
-            System.out.println(" Mandatory: " + mandatory.size() + " courses");
-            System.out.println(" Optional : " + optional.size() + " courses");
-            System.out.println("------------------------------------------");
+            System.out.println(CYAN+"\n------------------------------------------"+RESET);
+            System.out.println("       Current Goal Credit: " + this.goalCredit);
+            System.out.println("       Mandatory: " + mandatory.size() + " courses");
+            System.out.println("       Optional : " + optional.size() + " courses");
+            System.out.println(CYAN+"------------------------------------------"+RESET);
             System.out.println("1. Add/Edit MANDATORY Courses");
             System.out.println("2. Add/Edit OPTIONAL Courses");
             System.out.println("3. Remove a Course");
             System.out.println("4. Change Goal Credit");
             System.out.println("0. Finish Editing (Run Scheduler)");
-            System.out.print("> Select: ");
+            System.out.print(YELLOW+"> (,,>∇<,,) Select: "+RESET);
 
             String choice = sc.nextLine().trim();
 
             // Add
             if (choice.equals("1")) {
-                System.out.println("\n[Add to Mandatory] Type 'done' to finish.");
+                System.out.println(BLUE+"\n[Add to Mandatory]"+RESET+" Type 'done' to finish.");
                 ih.inputLoop(sc, mandatory);
             } 
             else if (choice.equals("2")) {
-                System.out.println("\n[Add to Optional] Type 'done' to finish.");
+                System.out.println(BLUE+"\n[Add to Optional]"+RESET+" Type 'done' to finish.");
                 ih.inputLoop(sc, optional);
             } 
             else if (choice.equals("3")) {
                 removeCourseHelper(mandatory, optional);
             } 
             else if (choice.equals("4")) {
-                System.out.print("Enter new max credit: ");
+                System.out.print("(*'▽ '*) Enter"+YELLOW+" new"+RESET+" max credit: ");
                 try {
                     int newCredit = Integer.parseInt(sc.nextLine().trim());
                     if (newCredit > 0) {
                         this.goalCredit = newCredit;
-                        System.out.println("Goal credit updated.");
+                        System.out.println("Goal credit"+YELLOW+" updated."+RESET);
                     } else {
-                        System.out.println("Credit must be positive.");
+                        System.out.println("Credit must be"+RED+" positive."+RESET);
                     }
                 } catch (Exception e) {
-                    System.out.println("Invalid number.");
+                    System.out.println(RED+"Invalid number."+RESET);
                 }
             } 
             else if (choice.equals("0")) {
                 break;
             } 
             else {
-                System.out.println("Invalid choice.");
+                System.out.println(RED+"Invalid choice."+RESET);
             }
         }
     }
 
     // helper of 'edit': remove
     private void removeCourseHelper(List<Course> mandatory, List<Course> optional) {
-        System.out.println("\n[Remove Course]");
+        System.out.println(PURPLE+"\n(*'▽ '*) [Remove Course]"+RESET);
         System.out.println("1. From Mandatory");
         System.out.println("2. From Optional");
-        System.out.print("> Select list: ");
+        System.out.print(YELLOW+"> (,,>∇<,,) Select list: "+RESET);
         String listType = sc.nextLine().trim();
 
         List<Course> target = null;
         if (listType.equals("1")) target = mandatory;
         else if (listType.equals("2")) target = optional;
         else {
-            System.out.println("Canceled.");
+            System.out.println(RED+"Canceled."+RESET);
             return;
         }
 
         if (target.isEmpty()) {
-            System.out.println("This list is empty.");
+            System.out.println(RED+"This list is empty."+RESET);
             return;
         }
 
@@ -161,22 +170,22 @@ public class Editor {
             System.out.println("[" + i + "] " + target.get(i).getName());
         }
 
-        System.out.print("Enter index to remove (or -1 to cancel): ");
+        System.out.print(RED+"(*'▽ '*) Enter index to remove "+RESET+" (or -1 to cancel): ");
         try {
             int idx = Integer.parseInt(sc.nextLine().trim());
             if (idx >= 0 && idx < target.size()) {
                 Course removed = target.remove(idx);
                 System.out.println("Removed: " + removed.getName());
             } else if (idx != -1) {
-                System.out.println("Invalid index.");
+                System.out.println(RED+"Invalid index."+RESET);
             }
         } catch (Exception e) {
-            System.out.println("Invalid input.");
+            System.out.println(RED+"Invalid input."+RESET);
         }
     }
 
     public void quit(){
-        System.out.println("[Bye] Closing system...");
+        System.out.println(BLUE+"[Bye] Closing system..."+RESET);
         System.exit(0);
     }
 }

@@ -46,7 +46,7 @@ public class ResultView {
 
         // 2. Print Header (Print in each new page)
         System.out.println(CYAN + "\n========================= Timetable =========================" + RESET);
-        System.out.println(YELLOW + BOLD + "  (*'▽ '*) Found " + totalSize + " timetables! Showing " + (currentIndex + 1) + "~" + endIndex + " (*'▽ '*)" + RESET);
+        System.out.println(YELLOW + BOLD + "     (*'▽ '*) Found " + totalSize + " timetables! Showing " + (currentIndex + 1) + "~" + endIndex + " (*'▽ '*)" + RESET);
         System.out.println(CYAN + "=============================================================" + RESET);
 
         // 3. Print 5 timetables
