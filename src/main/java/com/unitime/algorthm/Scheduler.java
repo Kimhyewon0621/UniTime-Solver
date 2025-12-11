@@ -1,12 +1,14 @@
-package com.unitime.solver;
+package com.unitime.algorthm;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TimeTableSolver {
+import com.unitime.feature.Course;
 
-    public List<List<Course>> solve(List<Course> mandatoryList, List<Course> optionList, int goalCredit) {
+public class Scheduler {
+
+    public List<List<Course>> schedule(List<Course> mandatoryList, List<Course> optionList, int goalCredit) {
         
         List<List<Course>> suggestionList = new ArrayList<>();
 
@@ -43,6 +45,10 @@ public class TimeTableSolver {
     
     private boolean isTimeOverlap(List<Course> currentTable, Course newCourse) {
         for (Course existing : currentTable) {
+
+            if (existing.getDay() != newCourse.getDay()) {
+                continue;
+            }
             if (existing.getStartTime() < newCourse.getEndTime() && 
             existing.getEndTime() > newCourse.getStartTime()) {
                 return true; 
