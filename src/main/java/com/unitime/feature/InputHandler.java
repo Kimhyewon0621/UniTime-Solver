@@ -68,7 +68,7 @@ public class InputHandler {
     }
 
     // Get user input
-    private void inputLoop(Scanner sc, List<Course> targetList) {
+    public void inputLoop(Scanner sc, List<Course> targetList) {
         System.out.println("------------------------------------------------------------------");
         System.out.println("Format: Name / Credit / Time");
         System.out.println("Example: Data Structure / 3 / Mon 12:30 14:00");
@@ -143,7 +143,7 @@ public class InputHandler {
     }
 
     // Change time into minutes
-    private int parseMin(String t) throws Exception {
+    public int parseMin(String t) throws Exception {
         try {
             String[] hhmm = t.split(":");
             if (hhmm.length != 2) {
