@@ -17,7 +17,6 @@ on:
 permissions:
   contents: write
   packages: write
-  dependencies: write
 
 jobs:
   build:
@@ -34,4 +33,3 @@ jobs:
         #cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-
