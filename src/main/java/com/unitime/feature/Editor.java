@@ -39,7 +39,7 @@ public class Editor {
         }
     }
 
-    // 
+    // 'next': loop to show 5 more schedules
     private void viewLoop(int startIndex) {
         int index = startIndex;
         String nextInput;
