@@ -6,12 +6,12 @@ import java.util.Scanner;
 
 public class InputHandler {
 
-    private static List<Course> mandatoryList = new ArrayList<>();
-    private static List<Course> optionalList = new ArrayList<>();
-    private static int maxCredit = 0;
-    public static void main(String[] args) {
+    private List<Course> mandatoryList = new ArrayList<>();
+    private List<Course> optionalList = new ArrayList<>();
+    private int maxCredit = 0;
+    
+    public InputHandler() {
         Scanner sc = new Scanner(System.in);
-
 
         System.out.println("===== UniTime-Solver: Input Courses =====");
 
@@ -68,7 +68,7 @@ public class InputHandler {
     }
 
     // Get user input
-    private static void inputLoop(Scanner sc, List<Course> targetList) {
+    private void inputLoop(Scanner sc, List<Course> targetList) {
         System.out.println("------------------------------------------------------------------");
         System.out.println("Format: Name / Credit / Time");
         System.out.println("Example: Data Structure / 3 / Mon 12:30 14:00");
@@ -143,7 +143,7 @@ public class InputHandler {
     }
 
     // Change time into minutes
-    private static int parseMin(String t) throws Exception {
+    private int parseMin(String t) throws Exception {
         try {
             String[] hhmm = t.split(":");
             if (hhmm.length != 2) {
@@ -163,15 +163,15 @@ public class InputHandler {
     }
 
     //Getters
-    public static List<Course> getMandatoryList() {
-    return mandatoryList;
+    public List<Course> getMandatoryList() {
+        return mandatoryList;
     }
 
-    public static List<Course> getOptionalList() {
+    public List<Course> getOptionalList() {
         return optionalList;
     }
 
-    public static int getMaxCredit() {
+    public int getMaxCredit() {
         return maxCredit;
     }
 }
