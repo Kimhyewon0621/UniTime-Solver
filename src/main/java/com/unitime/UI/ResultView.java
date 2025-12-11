@@ -57,12 +57,21 @@ public class ResultView {
         printNavigationMenu(hasNext);
 
         // 5. Get user input and return
+        while (true) {
         System.out.print("Your choice > ");
-        String input = scanner.nextLine().trim();
+        String input = scanner.nextLine().trim().toLowerCase();
 
-        // Perform basic validation and return
-        return input.toLowerCase();
+        //Edit: return only 'next' or 'edit'
+        if (input.equals("next") || input.equals("edit")) {
+            return input;
+        }
+
+        //Enter wrong message -> input again (loop)
+        System.out.println(RED + "Invalid command! Please type 'next' or 'edit' exactly." + RESET);
+
+        
     }
+}
 
     /**
      * Print each time table
@@ -78,7 +87,6 @@ public class ResultView {
 
         int totalCredit = 0;
         for (Course c : schedule) totalCredit += c.getCredit();
-        
 
         System.out.println(PURPLE + "\n              ────────────────────────────────");
         System.out.println(String.format("             │   Recommended Timetable No.%02d   │", index));
