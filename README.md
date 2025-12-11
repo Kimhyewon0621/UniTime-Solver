@@ -27,14 +27,23 @@
 >Use the Gradle Wrapper to build the project and create the executable **`.jar` file**.
    
 ### Usage Examples
->1. Launching the Application  
-   `java -jar build/libs/UniTime-Solver.jar`
->3. User Input and Commands
->4. Suggest 5 Time Tables
->5. Edit or Quit
+>1. **Launching the Application**  
+>  `java -jar build/libs/UniTime-Solver.jar`
+>2. **Course Input Format**  
+>   `[Course Name] / [Credit] / [Day] [Start HH:MM] [End HH:MM]`  
+>   *(Example: Data Structure / 3 / Mon 12:30 14:00)*
+>4. **Timetable Generation and Suggestion**  
+>   The system will process the input and display the first batch of 5 timetables.  
+>5. **User Selection and Commands**  
+>   Interact with the displayed results using one of the following commands:
+>   - `next` : Views the next batch of 5 recommended timetables.
+>   - `quit` : Terminates the program and saves the 5 currently displayed timetables to an output file.
+>   - `edit` : **Enters Edit Mode** to allow detailed modification of course constraints. This provides a menu to **add/remove courses**, and **change the Goal Credit** before regenerating new timetables.
 
-### Output Examples
+### Examples Images
 <img width="205" height="400" alt="image" src="https://github.com/user-attachments/assets/da546467-55c7-4332-afb9-2b5528665ec1" />
+<img width="150" height="100" alt="image" src="https://github.com/user-attachments/assets/9df457af-bd02-4346-be4c-7457fdb7debf" />
+
 
 
 ### Contribution
