@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class IntroScreen {
+    //set color for introscreen
     private static final String ANSI_RESET = "\u001b[0m";
     private static final String ANSI_BOLD = "\u001b[1m";
     private static final String ANSI_GREEN = "\u001b[38;5;46m";
@@ -16,20 +17,20 @@ public class IntroScreen {
     private static final int NUM_COLORS = ANSI_COLORS.length;
     private static final int WIDTH = 80;
 
-    public static void start() {
+    public static boolean start() {
         printBorderedBox();
 
         System.out.println("=".repeat(WIDTH + 4));
         System.out.println(ANSI_YELLOW + "                      Press [ENTER] to Start UniTime_Solver." + ANSI_RESET);
         System.out.println("=".repeat(WIDTH + 4));
 
-        // 사용자 입력 대기 로직 (이전에 구현하신 부분)
+        //waiting user's enter
         try (Scanner scanner = new Scanner(System.in)) {
             scanner.nextLine();
+            return true; //if user's enter succeed
+        }catch (Exception e) {
+            return false; //else
         }
-
-        System.out.println("\n🎉 UniTime-Solver가 시작됩니다...");
-        // 다음 단계(메인 메뉴)로 넘어가는 코드가 여기에 추가됩니다.
     }
 
     private static void printBorderedBox() {
