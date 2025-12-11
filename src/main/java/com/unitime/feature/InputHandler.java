@@ -5,16 +5,25 @@ import java.util.List;
 import java.util.Scanner;
 
 public class InputHandler {
+    public static final String RESET = "\u001B[0m";
+    public static final String RED = "\u001B[31m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String YELLOW = "\u001B[33m";
+    public static final String BLUE = "\u001B[34m";
+    public static final String PURPLE = "\u001B[35m";
+    public static final String CYAN = "\u001B[36m";
+    public static final String BLACK = "\u001B[30m";
+    public static final String BOLD = "\u001B[1m";
 
     private List<Course> mandatoryList = new ArrayList<>();
     private List<Course> optionalList = new ArrayList<>();
     private int maxCredit = 0;
     
     public void handle(Scanner sc) {
-        System.out.println("===== UniTime-Solver: Input Courses =====");
+        System.out.println(CYAN +"===== UniTime-Solver: Input Courses ====="+ RESET);
 
         // Maximum credit
-        System.out.print("What is your MAXIMUM total credit? (positive number): ");
+        System.out.print(YELLOW+"(*'▽ '*) What is your MAXIMUM total credit?"+RESET+" ('"+RED+"positive"+RESET+"' number): ");
         while (true) {
             try {
                 maxCredit = Integer.parseInt(sc.nextLine().trim());
@@ -22,20 +31,20 @@ public class InputHandler {
                     System.out.println("Maximum credit checked.");
                     break; 
                 }
-                System.out.println("Please enter a positive number.");
+                System.out.println("Please enter a '"+RED+"positive"+RESET+"' number.");
             } catch (NumberFormatException e) {
-                System.out.println("Invalid number. Please try again.");
+                System.out.println(RED+"Invalid number. Please try again."+RESET);
             }
         }
 
         // Put into list
         
         // MandatoryList
-        System.out.println("\n[1] Enter MANDATORY Courses");
+        System.out.println(BLUE+"\n[1] Enter MANDATORY Courses"+RESET);
         inputLoop(sc, mandatoryList); 
 
         // OptionalList
-        System.out.println("\n[2] Enter OPTIONAL Courses");
+        System.out.println(BLUE+"\n[2] Enter OPTIONAL Courses"+RESET);
         inputLoop(sc, optionalList); 
 
         printSummary();
@@ -44,39 +53,39 @@ public class InputHandler {
 
     // Show result
     public void printSummary() {
-        System.out.println("\n==========================================");
-        System.out.println("           Check Input Summary            ");
-        System.out.println("==========================================");
-        System.out.println("Maximum Credit: " + maxCredit);
+        System.out.println(CYAN +"\n=========================================="+ RESET);
+        System.out.println(PURPLE+"        (*>3<*) Check Input Summary            "+RESET);
+        System.out.println(CYAN +"=========================================="+ RESET);
+        System.out.println(RED+"Maximum Credit: "+RESET + maxCredit);
         
         // Mandatory
-        System.out.println("\n[Fixed Courses] (" + mandatoryList.size() + " courses)");
+        System.out.println(GREEN+"\n[Fixed Courses]"+RESET+" (" + mandatoryList.size() + " courses)");
         if (mandatoryList.isEmpty()) System.out.println(" (None)");
         for (Course c : mandatoryList) {
             System.out.println(" - " + c);
         }
 
         // Optional
-        System.out.println("\n[Optional Courses] (" + optionalList.size() + " courses)");
+        System.out.println(GREEN+"\n[Optional Courses]"+RESET+" (" + optionalList.size() + " courses)");
         if (optionalList.isEmpty()) System.out.println(" (None)");
         for (Course c : optionalList) {
             System.out.println(" - " + c);
         }
 
-        System.out.println("==========================================");
-        System.out.println("Finding timetables...");
-        System.out.println("==========================================");
+        System.out.println(CYAN +"=========================================="+ RESET);
+        System.out.println("             Finding timetables...");
+        System.out.println(CYAN +"=========================================="+ RESET);
     }
 
     // Get user input
     public void inputLoop(Scanner sc, List<Course> targetList) {
-        System.out.println("------------------------------------------------------------------");
-        System.out.println("Format: Name / Credit / Time");
-        System.out.println("Example: Data Structure / 3 / Mon 12:30 14:00");
-        System.out.println("------------------------------------------------------------------");
+        System.out.println(PURPLE +"------------------------------------------------------------------"+ RESET);
+        System.out.println("                Format: Name / Credit / Time");
+        System.out.println("                Example: Data Structure / 3 / Mon 12:30 14:00");
+        System.out.println(PURPLE +"------------------------------------------------------------------"+ RESET);
 
         while (true) {
-            System.out.print("\nInput (or 'done'): ");
+            System.out.print(BLUE+"\nInput (or 'done'): "+RESET);
             String input = sc.nextLine().trim();
 
             if (input.equalsIgnoreCase("done")) break;
@@ -85,7 +94,7 @@ public class InputHandler {
                 // Split by '/'
                 String[] parts = input.split("/");
                 if (parts.length != 3) {
-                    throw new Exception("All 3 fields must be separated by '/'");
+                    throw new Exception(RED +"All 3 fields must be separated by '/'"+RESET);
                 }
 
                 // Trim and parse
@@ -95,13 +104,13 @@ public class InputHandler {
 
                 // Validate credit
                 if (credit <= 0) {
-                    throw new Exception("Credit must be a positive number");
+                    throw new Exception(RED +"Credit must be a positive number"+RESET);
                 }
 
                 // Split time input
                 String[] timeParts = timeString.split(" ");
                 if (timeParts.length != 3) {
-                    throw new Exception("Time format should be 'Day Start End'");
+                    throw new Exception(RED +"Time format should be 'Day Start End'"+RESET);
                 }
 
                 // Handle 'day'
@@ -112,14 +121,14 @@ public class InputHandler {
                 else if (d.startsWith("w")) day = 2;
                 else if (d.startsWith("th")) day = 3;
                 else if (d.startsWith("f")) day = 4;
-                else throw new Exception("Invalid day (use Mon, Tue, Wed, Thu, or Fri)");
+                else throw new Exception(RED +"Invalid day (use Mon, Tue, Wed, Thu, or Fri)"+RESET);
 
                 // Parse time
                 int startMin = parseMin(timeParts[1]);
                 int endMin = parseMin(timeParts[2]);
 
                 if (startMin >= endMin) {
-                    throw new Exception("End time must be after start time");
+                    throw new Exception(RED +"End time must be after start time" +RESET);
                 }
 
                 // String for returning toString
@@ -128,17 +137,17 @@ public class InputHandler {
                 // Add to list
                 Course c = new Course(name, credit, day, startMin, endMin, timeRaw);
                 targetList.add(c);
-                System.out.println(" -> [Added] " + name);
+                System.out.println(GREEN+" -> [Added] " +RESET+ name);
 
             } catch (NumberFormatException e) {
-                System.out.println("Error: Credit must be a valid number");
-                System.out.println("Try again: Name / Credit / Day Start End");
+                System.out.println(RED +"Error: Credit must be a valid number"+ RESET);
+                System.out.println(RED +"Try again: Name / Credit / Day Start End"+ RESET);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Error: Invalid time format");
-                System.out.println("Try again: Name / Credit / Day Start End");
+                System.out.println(RED +"Error: Invalid time format"+ RESET);
+                System.out.println(RED +"Try again: Name / Credit / Day Start End"+ RESET);
             } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
-                System.out.println("Try again: Name / Credit / Day Start End");
+                System.out.println(RED +"Error: "+ RESET + e.getMessage());
+                System.out.println(RED +"Try again: Name / Credit / Day Start End"+ RESET);
             }
         }
     }
@@ -148,18 +157,18 @@ public class InputHandler {
         try {
             String[] hhmm = t.split(":");
             if (hhmm.length != 2) {
-                throw new Exception("Time must be in HH:MM format");
+                throw new Exception(RED +"Time must be in HH:MM format"+ RESET);
             }
             int hours = Integer.parseInt(hhmm[0]);
             int minutes = Integer.parseInt(hhmm[1]);
             
             if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
-                throw new Exception("Invalid time range (hours: 0-23, minutes: 0-59)");
+                throw new Exception(RED +"Invalid time range (hours: 0-23, minutes: 0-59)"+ RESET);
             }
             
             return hours * 60 + minutes;
         } catch (NumberFormatException e) {
-            throw new Exception("Time must contain valid numbers");
+            throw new Exception(RED +"Time must contain valid numbers"+ RESET);
         }
     }
 
