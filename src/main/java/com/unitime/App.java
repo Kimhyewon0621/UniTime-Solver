@@ -3,21 +3,19 @@ package com.unitime;
 import java.util.List;
 import java.util.Scanner;
 
-
+import com.unitime.UI.IntroScreen;
 import com.unitime.UI.ResultView;
-import com.unitime.feature.InputHandler;
+import com.unitime.algorthm.Scheduler;
 import com.unitime.feature.Course;
-import com.unitime.algorthm.Scheduler; 
+import com.unitime.feature.InputHandler; 
 
 public class App {
     public static void main( String[] args ) {
         
         Scanner sc = new Scanner(System.in);
-
-        System.out.println("\n=== Welcome to UniTime-Solver! ==="); 
+        IntroScreen.start();
         System.out.println("Press [ENTER] to start...");
         sc.nextLine();
-
         while(true) {
             
             InputHandler inputHandler = new InputHandler(); 
@@ -42,6 +40,7 @@ public class App {
                     if (currentIndex + 5 < results.size()) {
                         currentIndex += 5;
                     } else {
+
                     }
                 } 
                 else if (command.equals("edit")) {
@@ -50,4 +49,5 @@ public class App {
             }
         }
     }
+        
 }

@@ -1,4 +1,4 @@
-import java.util.Scanner;
+package com.unitime.UI;
 
 public class IntroScreen {
     //set color for introscreen
@@ -17,7 +17,7 @@ public class IntroScreen {
     private static final int NUM_COLORS = ANSI_COLORS.length;
     private static final int WIDTH = 80;
 
-    public static boolean start() {
+    public static void start() {
         printBorderedBox();
 
         System.out.println("=".repeat(WIDTH + 4));
@@ -25,12 +25,6 @@ public class IntroScreen {
         System.out.println("=".repeat(WIDTH + 4));
 
         //waiting user's enter
-        try (Scanner scanner = new Scanner(System.in)) {
-            scanner.nextLine();
-            return true; //if user's enter succeed
-        }catch (Exception e) {
-            return false; //else
-        }
     }
 
     private static void printBorderedBox() {

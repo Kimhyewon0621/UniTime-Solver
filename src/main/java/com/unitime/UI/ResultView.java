@@ -3,6 +3,7 @@ package com.unitime.UI;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+
 import com.unitime.feature.Course;
 
 public class ResultView {
