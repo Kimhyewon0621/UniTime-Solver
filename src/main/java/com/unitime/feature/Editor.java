@@ -30,7 +30,7 @@ public class Editor {
 
         input = input.toLowerCase().trim();
 
-        if (input.equals("quit")) System.quit(0);
+        if (input.equals("quit")) quit();
         else if (input.equals("edit")) editList(); 
         else if (input.equals("next")) viewLoop(5);
         else {
@@ -163,7 +163,7 @@ public class Editor {
         }
     }
 
-    public void exit(){
+    public void quit(){
         System.out.println("[Bye] Closing system...");
     }
 }
