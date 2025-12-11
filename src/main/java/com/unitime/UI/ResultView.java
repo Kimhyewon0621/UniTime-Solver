@@ -63,7 +63,7 @@ public class ResultView {
         String input = scanner.nextLine().trim().toLowerCase();
 
         //Edit: return only 'next' or 'edit'
-        if (input.equals("next") || input.equals("edit")) {
+        if (input.equals("next") || input.equals("edit") || input.equals("quit")) {
             return input;
         }
 
@@ -114,7 +114,7 @@ public class ResultView {
         System.out.println(CYAN + "\n-------------------------------------------------------------" + RESET);
         
         if (hasNext) {
-            System.out.println("              ( > ω < ) Select: [" + BLUE + "next" + RESET + "] or [" + RED + "edit" + RESET + "] ");
+            System.out.println("              ( > ω < ) Select: [" + BLUE + "next" + RESET + "] or [" + RED + "edit" + RESET + "] or [" + YELLOW + "quit" + RESET + "] ");
             System.out.println("     Type '" + BLUE + "next" + RESET + "' to see more timetables.");
         } else {
             System.out.println("              ( > ω < ) Select: [" + RED + "edit" + RESET + "] ");
@@ -122,6 +122,7 @@ public class ResultView {
         }
         
         System.out.println("     Type '" + RED + "edit" + RESET + "' to modify your courses.");
+        System.out.println("     Type '" + YELLOW + "quit" + RESET + "' to close UniTime-Solver.");
         System.out.println(CYAN + "-------------------------------------------------------------" + RESET);
     }
 

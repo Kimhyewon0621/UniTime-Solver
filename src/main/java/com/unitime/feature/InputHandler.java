@@ -10,9 +10,7 @@ public class InputHandler {
     private List<Course> optionalList = new ArrayList<>();
     private int maxCredit = 0;
     
-    public InputHandler() {
-        Scanner sc = new Scanner(System.in);
-
+    public void handle(Scanner sc) {
         System.out.println("===== UniTime-Solver: Input Courses =====");
 
         // Maximum credit
@@ -36,11 +34,16 @@ public class InputHandler {
         System.out.println("\n[1] Enter MANDATORY Courses");
         inputLoop(sc, mandatoryList); 
 
-        // OptionalList에 담기
+        // OptionalList
         System.out.println("\n[2] Enter OPTIONAL Courses");
         inputLoop(sc, optionalList); 
 
-        // Show result
+        printSummary();
+    }
+
+
+    // Show result
+    public void printSummary() {
         System.out.println("\n==========================================");
         System.out.println("           Check Input Summary            ");
         System.out.println("==========================================");

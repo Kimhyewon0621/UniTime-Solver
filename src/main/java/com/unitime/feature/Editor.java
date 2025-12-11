@@ -22,6 +22,10 @@ public class Editor {
         this.sc = scanner;
     }
 
+    public void start() {
+        viewLoop(0);
+    }
+
     // Routing: send to function depending on its input
     public void route(String input, List<List<Course>> currentSchedules) {
         if (currentSchedules != null) {
@@ -48,18 +52,19 @@ public class Editor {
             ResultView rv = new ResultView();
             nextInput = rv.printBatchAndGetInput(this.schedules, index, this.sc);
 
-            if (nextInput.equals("next")) {
-                if (index + 5 < schedules.size()) {
-                    index += 5;
-                } else {
-                    System.out.println("[Info] No more schedules to show.");
-                }
-                continue;
+            if(nextInput.equals("quit")) {
+                quit();
+                break;
             }
-            break; 
-        }
+
+            int nextIndex = startIndex;
+            if(nextInput.equals("next")) {
+                if (startIndex + 5 < schedules.size()) nextIndex += 5;
+                else System.out.println("[Info] Last page.");
+            }
         
-        route(nextInput, this.schedules); 
+            route(nextInput, this.schedules); 
+        }
     }
 
     // 'edit': edit lists and send it back to InputHandler 
@@ -71,6 +76,9 @@ public class Editor {
 
         Scheduler scheduler = new Scheduler();
         this.schedules = scheduler.schedule(this.mandatoryList, this.optionList, this.goalCredit);
+
+        System.out.println("Calculation Done. Showing results...");
+        viewLoop(0);
     }
 
     // helper of 'edit'
