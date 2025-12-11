@@ -34,10 +34,10 @@ CI/CD
 ## Output Examples
 
 ## Contribution
-Ayeong Kwon
-Mingyeong Kim
-Hyewon Kim
-Jiseop Lee
+Ayeong Kwon @AyeongKwon
+Mingyeong Kim @mingyeonggg
+Hyewon Kim @Kimhyewon0621
+Jiseop Lee @ljseop1030
 
 ## License
 This project is licensed under the MIT License.
