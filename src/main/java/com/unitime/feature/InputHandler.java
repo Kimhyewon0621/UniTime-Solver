@@ -69,17 +69,17 @@ public class InputHandler {
             System.out.println(" - " + c);
         }
 
-        System.out.println(ANSI+"=========================================="+RESET);
+        System.out.println(CYAN+"=========================================="+RESET);
         System.out.println(YELLOW+"Finding timetables..."+RESET);
-        System.out.println(ANSI+"=========================================="+RESET);
+        System.out.println(CYAN+"=========================================="+RESET);
     }
 
     // Get user input
     public void inputLoop(Scanner sc, List<Course> targetList) {
-        System.out.println(ANSI+"------------------------------------------------------------------"+RESET);
+        System.out.println(CYAN+"------------------------------------------------------------------"+RESET);
         System.out.println(BOLD+"Format: Name / Credit / Time"+RESET);
         System.out.println("Example: Data Structure / 3 / Mon 12:30 14:00");
-        System.out.println(ANSI+"------------------------------------------------------------------"+RESET);
+        System.out.println(CYAN+"------------------------------------------------------------------"+RESET);
 
         while (true) {
             System.out.print("\nInput (or 'done'): ");
@@ -101,7 +101,7 @@ public class InputHandler {
 
                 // Validate credit
                 if (credit <= 0) {
-                    throw new Exception(RED+"Credit must be a positive number"+RETURN);
+                    throw new Exception(RED+"Credit must be a positive number"+RESET);
                 }
 
                 // Split time input
