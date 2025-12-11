@@ -1,56 +1,60 @@
 package com.unitime.algorthm;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.unitime.feature.Course;
 
 public class Scheduler {
 
+    private List<List<Course>> allSchedules;
+
     public List<List<Course>> schedule(List<Course> mandatoryList, List<Course> optionList, int goalCredit) {
         
-        List<List<Course>> suggestionList = new ArrayList<>();
+        allSchedules = new ArrayList<>();
 
-        for (int i = 0; i < 5; i++) { 
-            
-            List<Course> oneTable = new ArrayList<>();
-            int currentTotalCredit = 0;
+        List<Course> currentSchedule = new ArrayList<>();
 
-            for (Course m : mandatoryList) { 
-                oneTable.add(m);
-                currentTotalCredit += m.getCredit();
-            }
-
-            List<Course> shuffledOptions = new ArrayList<>(optionList);
-            Collections.shuffle(shuffledOptions);
-
-            for (Course o : shuffledOptions) {
-                if (currentTotalCredit + o.getCredit() > goalCredit) { 
-                    continue;  
-                }
-
-                if (!isTimeOverlap(oneTable, o)) { 
-                    oneTable.add(o);
-                    currentTotalCredit += o.getCredit();
-                }
-            }
-
-            suggestionList.add(oneTable);
+        int currentCredit = 0;
+        for (Course m : mandatoryList) {
+            currentSchedule.add(m);
+            currentCredit += m.getCredit();
         }
 
-        return suggestionList;
+        findCombinations(0, currentSchedule, currentCredit, optionList, goalCredit);
+
+        return allSchedules;
     }
 
-    
+    private void findCombinations(int index, List<Course> currentSchedule, int currentCredit, List<Course> optionList, int goalCredit) {
+        allSchedules.add(new ArrayList<>(currentSchedule));
+
+        for (int i = index; i < optionList.size(); i++) {
+            Course candidate = optionList.get(i);
+
+            if (currentCredit + candidate.getCredit() > goalCredit) {
+                continue;
+            }
+
+            if (isTimeOverlap(currentSchedule, candidate)) {
+                continue;
+            }
+
+            currentSchedule.add(candidate);
+
+            findCombinations(i + 1, currentSchedule, currentCredit + candidate.getCredit(), optionList, goalCredit);
+
+            currentSchedule.remove(currentSchedule.size() - 1);
+        }
+    }
+
     private boolean isTimeOverlap(List<Course> currentTable, Course newCourse) {
         for (Course existing : currentTable) {
-
             if (existing.getDay() != newCourse.getDay()) {
                 continue;
             }
             if (existing.getStartTime() < newCourse.getEndTime() && 
-            existing.getEndTime() > newCourse.getStartTime()) {
+                existing.getEndTime() > newCourse.getStartTime()) {
                 return true; 
             }
         }
