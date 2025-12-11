@@ -15,7 +15,7 @@ public class InputHandler {
 
         System.out.println("===== UniTime-Solver: Input Courses =====");
 
-        // 목표 학점
+        // Maximum credit
         System.out.print("What is your MAXIMUM total credit? (positive number): ");
         while (true) {
             try {
@@ -162,7 +162,7 @@ public class InputHandler {
         }
     }
 
-    //Getters
+    // Getters
     public List<Course> getMandatoryList() {
         return mandatoryList;
     }
