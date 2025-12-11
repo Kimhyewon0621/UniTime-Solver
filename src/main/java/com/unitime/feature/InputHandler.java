@@ -63,8 +63,6 @@ public class InputHandler {
         System.out.println("==========================================");
         System.out.println("Finding timetables...");
         System.out.println("==========================================");
-
-        sc.close();
     }
 
     // Get user input
