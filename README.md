@@ -44,7 +44,31 @@
 <img width="205" height="400" alt="image" src="https://github.com/user-attachments/assets/da546467-55c7-4332-afb9-2b5528665ec1" />
 <img width="150" height="100" alt="image" src="https://github.com/user-attachments/assets/9df457af-bd02-4346-be4c-7457fdb7debf" />
 
+##  Release Notes
 
+Submission Version for the OpenSource SW Final Project.
+(Initial release)
+
+###  Key Features
+
+1.  **TimeTable Generation (Scheduler)**:
+Generates all possible, valid, and non-overlapping course combinations. This uses a **Backtracking Algorithm** to select optional courses while respecting the maximum credit limit (`goalCredit`) and avoiding time conflicts (`isTimeOverlap`).
+2.  **Course Input & Management (InputHandler & Editor)**: 
+Allows users to input Mandatory and Optional courses, including their name, credit, day, and time (`HH:MM`). The system provides robust input validation for credit and time formats. The **Editor** class enables users to modify or remove courses and change the maximum credit limit after the initial setup.
+3.  **Paginated Result Viewing (ResultView)**: 
+Displays the generated timetables in batches of **5 schedules** (`BATCH_SIZE = 5`). Users can navigate through the results using the `'next'` command or exit/modify the input using the `'edit'` command.
+
+###  How to Run
+
+1.  Download the `.jar` file from the **Assets** section below.
+
+2.  Open your terminal (CMD/PowerShell/Terminal) and navigate to the folder where the file is located.
+
+3.  Run the following command to execute the program:
+   ` java -jar [filename].jar
+`
+
+https://github.com/Kimhyewon0621/UniTime-Solver/releases/tag/v1.0
 
 ### Contribution
 >Ayeong Kwon ( @AyeongKwon )  
